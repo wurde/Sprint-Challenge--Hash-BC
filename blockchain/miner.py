@@ -7,6 +7,7 @@ import sys
 import random
 import hashlib
 import requests
+import multiprocessing
 from uuid import uuid4
 from timeit import default_timer as timer
 
@@ -14,7 +15,7 @@ from timeit import default_timer as timer
 # Define methods
 #
 
-def proof_of_work(last_proof):
+def proof_of_work(last_proof, seed):
     """
     Multi-Ouroboros of Work Algorithm
     - Find a number p' such that the last six digits of hash(p) are equal
@@ -30,7 +31,7 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     while valid_proof(last_proof, proof) is False:
-        proof += 100001
+        proof += 100001 + seed
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -49,12 +50,13 @@ def valid_proof(last_hash, proof):
 
     return str(last_hash)[len(str(last_hash))-6:] == guess_hash[:6]
 
-def work():
+def work(seed):
     # What node are we interacting with?
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        node = "https://lambda-coin.herokuapp.com/api"
+        # node = "https://lambda-coin.herokuapp.com/api"
+        node = "https://lambda-coin-test-1.herokuapp.com/api"
 
     coins_mined = 0
 
@@ -73,7 +75,7 @@ def work():
         # Get the last proof from the server
         r = requests.get(url=node + "/last_proof")
         data = r.json()
-        new_proof = proof_of_work(data.get('proof'))
+        new_proof = proof_of_work(data.get('proof'), seed)
 
         post_data = {"proof": new_proof,
                      "id": id}
@@ -91,4 +93,8 @@ def work():
 #
 
 if __name__ == '__main__':
-    work()
+    jobs = []
+    for i in range(0,5):
+        p = multiprocessing.Process(target=work, args=(100*i,))
+        jobs.append(p)
+        p.start()
