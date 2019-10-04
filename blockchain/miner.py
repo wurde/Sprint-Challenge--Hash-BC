@@ -29,7 +29,8 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    #  TODO: Your code here
+    while valid_proof(last_proof, proof) is False:
+        proof += 100001
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -43,8 +44,10 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...AE9123456, new hash 123456888...
     """
 
-    # TODO: Your code here!
-    pass
+    guess = f'{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+
+    return str(last_hash)[len(str(last_hash))-6:] == guess_hash[:6]
 
 def work():
     # What node are we interacting with?
@@ -62,9 +65,6 @@ def work():
     id = f.read()
     print("ID is", id)
     f.close()
-
-    print(f"id: {id}")
-    return True
 
     if id == 'NONAME\n':
         print("ERROR: You must change your name in `my_id.txt`!")
