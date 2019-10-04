@@ -54,8 +54,7 @@ def work():
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        # node = "https://lambda-coin.herokuapp.com/api"
-        node = "https://lambda-coin-test-1.herokuapp.com/api"
+        node = "https://lambda-coin.herokuapp.com/api"
 
     coins_mined = 0
 
