@@ -10,16 +10,12 @@ def get_indices_of_item_weights(weights, length, limit):
     ht = HashTable(16)
 
     for i in range(length):
-        if weights[i] < limit:
-            next
+        hash_table_insert(ht, weights[i], i)
 
-        for j in range(length):
-            if j != i:
-                total = weights[i] + weights[j]
-                if total == limit:
-                    max_weight = max([weights[i], weights[j]])
-                    min_weight = min([weights[i], weights[j]])
-                    return (weights.index(max_weight), weights.index(min_weight))
+    for i in range(length):
+        value = hash_table_retrieve(ht, limit - weights[i])
+        if value:
+            return (value, i)
 
     return None
 
