@@ -2,6 +2,7 @@
 # Depenndencies
 #
 
+import os
 import sys
 import random
 import hashlib
@@ -53,16 +54,17 @@ def work():
         # node = "https://lambda-coin.herokuapp.com/api"
         node = "https://lambda-coin-test-1.herokuapp.com/api"
 
-    print(f"node {node}")
-    return True
-
     coins_mined = 0
 
     # Load or create ID
-    f = open("my_id.txt", "r")
+    id_path = os.path.join(os.path.dirname(__file__), 'my_id.txt')
+    f = open(id_path, "r")
     id = f.read()
     print("ID is", id)
     f.close()
+
+    print(f"id: {id}")
+    return True
 
     if id == 'NONAME\n':
         print("ERROR: You must change your name in `my_id.txt`!")
