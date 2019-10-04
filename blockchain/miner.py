@@ -45,16 +45,16 @@ def valid_proof(last_hash, proof):
     # TODO: Your code here!
     pass
 
-#
-# Start mining blocks for coins
-#
-
-if __name__ == '__main__':
+def work():
     # What node are we interacting with?
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        node = "https://lambda-coin.herokuapp.com/api"
+        # node = "https://lambda-coin.herokuapp.com/api"
+        node = "https://lambda-coin-test-1.herokuapp.com/api"
+
+    print(f"node {node}")
+    return True
 
     coins_mined = 0
 
@@ -84,3 +84,10 @@ if __name__ == '__main__':
             print("Total coins mined: " + str(coins_mined))
         else:
             print(data.get('message'))
+
+#
+# Start mining blocks for coins
+#
+
+if __name__ == '__main__':
+    work()
