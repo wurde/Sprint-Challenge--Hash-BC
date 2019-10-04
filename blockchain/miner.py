@@ -1,14 +1,17 @@
-import hashlib
-import requests
+#
+# Depenndencies
+#
 
 import sys
-
+import random
+import hashlib
+import requests
 from uuid import uuid4
-
 from timeit import default_timer as timer
 
-import random
-
+#
+# Define methods
+#
 
 def proof_of_work(last_proof):
     """
@@ -42,6 +45,9 @@ def valid_proof(last_hash, proof):
     # TODO: Your code here!
     pass
 
+#
+# Start mining blocks for coins
+#
 
 if __name__ == '__main__':
     # What node are we interacting with?
