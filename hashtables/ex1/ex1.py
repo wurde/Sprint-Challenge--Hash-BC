@@ -9,9 +9,17 @@ from hashtables import (HashTable,
 def get_indices_of_item_weights(weights, length, limit):
     ht = HashTable(16)
 
-    """
-    YOUR CODE HERE
-    """
+    for i in range(length):
+        if weights[i] < limit:
+            next
+
+        for j in range(length):
+            if j != i:
+                total = weights[i] + weights[j]
+                if total == limit:
+                    max_weight = max([weights[i], weights[j]])
+                    min_weight = min([weights[i], weights[j]])
+                    return (weights.index(max_weight), weights.index(min_weight))
 
     return None
 
