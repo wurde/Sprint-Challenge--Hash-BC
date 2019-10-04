@@ -28,10 +28,9 @@ def proof_of_work(last_proof, seed):
 
     start = timer()
 
-    print("Searching for next proof")
+    print(f"Searching for next proof! (seed: {seed})")
     proof = 0
     while valid_proof(last_proof, proof) is False:
-        # proof += 100001 + seed
         proof += 1 + seed
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
@@ -94,13 +93,19 @@ def work(seed):
         else:
             print(data.get('message'))
 
+
 #
 # Start mining blocks for coins
 #
 
 if __name__ == '__main__':
     jobs = []
-    for i in range(0,5):
-        p = multiprocessing.Process(target=work, args=(100*i,))
+    for i in range(1,7):
+        p = multiprocessing.Process(target=work, args=(i**i,))
         jobs.append(p)
         p.start()
+
+    # for i in range(1,7):
+    #     p = multiprocessing.Process(target=work, args=(-i**i,))
+    #     jobs.append(p)
+    #     p.start()
