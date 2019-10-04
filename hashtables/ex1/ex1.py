@@ -1,8 +1,14 @@
-#  Hint:  You may not need all of these.  Remove the unused functions.
+#
+# Depenndencies
+#
+
 from hashtables import (HashTable,
                         hash_table_insert,
                         hash_table_retrieve)
 
+#
+# Define methods
+#
 
 def get_indices_of_item_weights(weights, length, limit):
     ht = HashTable(16)
