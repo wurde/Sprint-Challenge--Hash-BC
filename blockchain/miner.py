@@ -55,8 +55,7 @@ def work(seed):
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        # node = "https://lambda-coin.herokuapp.com/api"
-        node = "https://lambda-coin-test-1.herokuapp.com/api"
+        node = "https://lambda-coin.herokuapp.com/api"
 
     coins_mined = 0
 
@@ -75,6 +74,7 @@ def work(seed):
         # Get the last proof from the server
         r = requests.get(url=node + "/last_proof")
         data = r.json()
+        #=> {'proof': 23478042, 'difficulty': 6}
         new_proof = proof_of_work(data.get('proof'), seed)
 
         post_data = {"proof": new_proof,
